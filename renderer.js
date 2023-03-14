@@ -2,6 +2,18 @@
 // donde seleccionamos el div con clase app
 //y le asignamos el contenido generado dinámicamente por el js.
 
+const homeContent = new XMLHttpRequest();
+homeContent.onreadystatechange = function () {
+  if (this.readyState == 4 && this.status == 200) {
+    return (document.getElementsByClassName("home").innerHTML =
+      this.responseText);
+  }
+
+  return "<p>No funciona</p>";
+};
+homeContent.open("GET", "./src/screens/home/home.html", true);
+homeContent.send();
+
 //Declaramos el contenedor de la app
 const app = document.getElementById("app");
 
@@ -20,6 +32,7 @@ const handleOnClick = (e) => {
   const content = document.querySelector(".content");
   const target = e.target;
   if (target.innerText === "Home") {
+    console.log(home);
     content.innerHTML = home.innerHTML;
   }
   if (target.innerText === "About") {
@@ -45,10 +58,7 @@ layout.innerHTML = `
 `;
 
 home.innerHTML = `
-<div class="home">
-<h1>Home</h1>
-<p>Home page content</p>
-</div>
+${homeContent}
 `;
 
 about.innerHTML = `
