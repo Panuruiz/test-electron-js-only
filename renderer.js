@@ -2,12 +2,20 @@
 // donde seleccionamos el div con clase app
 //y le asignamos el contenido generado dinámicamente por el js.
 const homeContent = document.createElement("div");
-fetch('./src/screens/home/home.html')
-  .then(response => response.text())
-  .then(html => {
+fetch("./src/screens/home/home.html")
+  .then((response) => response.text())
+  .then((html) => {
     homeContent.innerHTML = html;
   })
-  .catch(error => console.error(error));
+  .catch((error) => console.error(error));
+
+// const layoutContent = document.createElement("div");
+// fetch("./src/layout/layout.html")
+//   .then((response) => response.text())
+//   .then((html) => {
+//     layoutContent.innerHTML = html;
+//   })
+//   .catch((error) => console.error(error));
 
 //Declaramos el contenedor de la app
 const app = document.getElementById("app");
@@ -40,21 +48,22 @@ const handleOnClick = (e) => {
 
 //Declaramos el contenido de los elementos
 layout.innerHTML = `
-  <div class="layout">
-    <div class="nav">
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </div>
-    <div class="content"></div>
+<head>
+  <link rel="stylesheet" href="./src/layout/layout.css" />
+</head>
+<div class="layout">
+  <div class="nav">
+    <ul class="nav-list">
+      <li class="nav-item"><a href="#">Home</a></li>
+      <li class="nav-item"><a href="#">About</a></li>
+      <li class="nav-item"><a href="#">Contact</a></li>
+    </ul>
   </div>
+  <div class="content"></div>
+</div>
 `;
 
-
 home.appendChild(homeContent);
-
 
 about.innerHTML = `
   <div class="about">
@@ -71,9 +80,9 @@ contact.innerHTML = `
 `;
 
 // Declaramos el contenido del div con clase app
-app.innerHTML = `
-  ${layout.innerHTML}
-`;
+app.innerHTML = setTimeout(() => {
+  return `${layout.innerHTML}`;
+}, 1000);
 
 // Declaramos el evento que se encargará de cambiar el contenido del div con clase content
 document.addEventListener("DOMContentLoaded", () => {
