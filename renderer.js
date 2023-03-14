@@ -1,18 +1,13 @@
 // Este es el punto de anclaje entre el html y el js,
 // donde seleccionamos el div con clase app
 //y le asignamos el contenido generado dinámicamente por el js.
-
-const homeContent = new XMLHttpRequest();
-homeContent.onreadystatechange = function () {
-  if (this.readyState == 4 && this.status == 200) {
-    return (document.getElementsByClassName("home").innerHTML =
-      this.responseText);
-  }
-
-  return "<p>No funciona</p>";
-};
-homeContent.open("GET", "./src/screens/home/home.html", true);
-homeContent.send();
+const homeContent = document.createElement("div");
+fetch('./src/screens/home/home.html')
+  .then(response => response.text())
+  .then(html => {
+    homeContent.innerHTML = html;
+  })
+  .catch(error => console.error(error));
 
 //Declaramos el contenedor de la app
 const app = document.getElementById("app");
@@ -57,9 +52,9 @@ layout.innerHTML = `
   </div>
 `;
 
-home.innerHTML = `
-${homeContent}
-`;
+
+home.appendChild(homeContent);
+
 
 about.innerHTML = `
   <div class="about">
