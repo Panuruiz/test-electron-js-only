@@ -1,6 +1,13 @@
 // Este es el punto de anclaje entre el html y el js,
 // donde seleccionamos el div con clase app
 //y le asignamos el contenido generado dinámicamente por el js.
+const homeContent = document.createElement("div");
+fetch('./src/screens/home/home.html')
+  .then(response => response.text())
+  .then(html => {
+    homeContent.innerHTML = html;
+  })
+  .catch(error => console.error(error));
 
 //Declaramos el contenedor de la app
 const app = document.getElementById("app");
@@ -20,6 +27,7 @@ const handleOnClick = (e) => {
   const content = document.querySelector(".content");
   const target = e.target;
   if (target.innerText === "Home") {
+    console.log(home);
     content.innerHTML = home.innerHTML;
   }
   if (target.innerText === "About") {
@@ -44,12 +52,9 @@ layout.innerHTML = `
   </div>
 `;
 
-home.innerHTML = `
-<div class="home">
-<h1>Home</h1>
-<p>Home page content</p>
-</div>
-`;
+
+home.appendChild(homeContent);
+
 
 about.innerHTML = `
   <div class="about">
