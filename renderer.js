@@ -82,14 +82,11 @@ contact.innerHTML = `
 `;
 
 function initApp(){
-// Declaramos el contenido del div con clase app
-app.innerHTML =  `
-${layout.innerHTML}
-`;
-// Declaramos el evento que se encargará de cambiar el contenido del div con clase content
-// document.addEventListener("DOMContentLoaded", () => {
-  // app.innerHTML = layout.innerHTML;
- const nav = document.querySelector(".nav");
- nav.addEventListener("click", handleOnClick);
-// });
+  // Declaramos el contenido del div con clase app
+  app.innerHTML =  `
+    ${layout.innerHTML}
+  `;
+  // Declaramos el evento que se encargará de cambiar el contenido del div con clase content
+  const nav = document.querySelector(".nav");
+  nav.addEventListener("click", handleOnClick);
 }
