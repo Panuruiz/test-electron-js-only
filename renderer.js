@@ -9,13 +9,14 @@ fetch("./src/screens/home/home.html")
   })
   .catch((error) => console.error(error));
 
-// const layoutContent = document.createElement("div");
-// fetch("./src/layout/layout.html")
-//   .then((response) => response.text())
-//   .then((html) => {
-//     layoutContent.innerHTML = html;
-//   })
-//   .catch((error) => console.error(error));
+const layoutContent = document.createElement("div");
+fetch("./src/layout/layout.html")
+  .then((response) => response.text())
+  .then((html) => {
+    layoutContent.innerHTML = html;
+    initApp();
+  })
+  .catch((error) => console.error(error));
 
 //Declaramos el contenedor de la app
 const app = document.getElementById("app");
@@ -47,21 +48,22 @@ const handleOnClick = (e) => {
 };
 
 //Declaramos el contenido de los elementos
-layout.innerHTML = `
-<head>
-  <link rel="stylesheet" href="./src/layout/layout.css" />
-</head>
-<div class="layout">
-  <div class="nav">
-    <ul class="nav-list">
-      <li class="nav-item"><a href="#">Home</a></li>
-      <li class="nav-item"><a href="#">About</a></li>
-      <li class="nav-item"><a href="#">Contact</a></li>
-    </ul>
-  </div>
-  <div class="content"></div>
-</div>
-`;
+// layout.innerHTML = `
+// <head>
+//   <link rel="stylesheet" href="./src/layout/layout.css" />
+// </head>
+// <div class="layout">
+//   <div class="nav">
+//     <ul class="nav-list">
+//       <li class="nav-item"><a href="#">Home</a></li>
+//       <li class="nav-item"><a href="#">About</a></li>
+//       <li class="nav-item"><a href="#">Contact</a></li>
+//     </ul>
+//   </div>
+//   <div class="content"></div>
+// </div>
+// `;
+layout.appendChild(layoutContent);
 
 home.appendChild(homeContent);
 
@@ -79,14 +81,15 @@ contact.innerHTML = `
   </div>
 `;
 
+function initApp(){
 // Declaramos el contenido del div con clase app
-app.innerHTML = setTimeout(() => {
-  return `${layout.innerHTML}`;
-}, 1000);
-
+app.innerHTML =  `
+${layout.innerHTML}
+`;
 // Declaramos el evento que se encargará de cambiar el contenido del div con clase content
-document.addEventListener("DOMContentLoaded", () => {
-  app.innerHTML = layout.innerHTML;
-  const nav = document.querySelector(".nav");
-  nav.addEventListener("click", handleOnClick);
-});
+// document.addEventListener("DOMContentLoaded", () => {
+  // app.innerHTML = layout.innerHTML;
+ const nav = document.querySelector(".nav");
+ nav.addEventListener("click", handleOnClick);
+// });
+}
