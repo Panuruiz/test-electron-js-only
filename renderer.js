@@ -9,14 +9,32 @@ fetch("./src/screens/home/home.html")
   })
   .catch((error) => console.error(error));
 
-// const layoutContent = document.createElement("div");
-// fetch("./src/layout/layout.html")
-//   .then((response) => response.text())
-//   .then((html) => {
-//     layoutContent.innerHTML = html;
-//   })
-//   .catch((error) => console.error(error));
+const layoutContent = document.createElement("div");
+fetch("./src/layout/layout.html")
+  .then((response) => response.text())
+  .then((html) => {
+    layoutContent.innerHTML = html;
+    initApp();
+  })
+  .catch((error) => console.error(error));
 
+const lugaresContent = document.createElement("div");
+fetch("./src/screens/lugares/lugares.html")
+  .then((response) => response.text())
+  .then((html) => {
+    lugaresContent.innerHTML = html;
+    initApp();
+  })
+  .catch((error) => console.error(error));
+
+const amigosContent = document.createElement("div");
+fetch("./src/screens/amigos/amigos.html")
+  .then((response) => response.text())
+  .then((html) => {
+    amigosContent.innerHTML = html;
+    initApp();
+  })
+  .catch((error) => console.error(error));
 //Declaramos el contenedor de la app
 const app = document.getElementById("app");
 
@@ -26,67 +44,40 @@ const layout = document.createElement("div");
 //Declaramos los elementos que contendrá el layout
 const home = document.createElement("div");
 
-const about = document.createElement("div");
+const lugares = document.createElement("div");
 
-const contact = document.createElement("div");
+const amigos = document.createElement("div");
 
 //Declaramos la función que se encargará de cambiar el contenido del div con clase content
 const handleOnClick = (e) => {
   const content = document.querySelector(".content");
   const target = e.target;
   if (target.innerText === "Home") {
-    console.log(home);
+    //console.log(home);
     content.innerHTML = home.innerHTML;
   }
-  if (target.innerText === "About") {
-    content.innerHTML = about.innerHTML;
+  if (target.innerText === "Lugares") {
+    content.innerHTML = lugares.innerHTML;
   }
-  if (target.innerText === "Contact") {
-    content.innerHTML = contact.innerHTML;
+  if (target.innerText === "Amigos") {
+    content.innerHTML = amigos.innerHTML;
   }
 };
 
-//Declaramos el contenido de los elementos
-layout.innerHTML = `
-<head>
-  <link rel="stylesheet" href="./src/layout/layout.css" />
-</head>
-<div class="layout">
-  <div class="nav">
-    <ul class="nav-list">
-      <li class="nav-item"><a href="#">Home</a></li>
-      <li class="nav-item"><a href="#">About</a></li>
-      <li class="nav-item"><a href="#">Contact</a></li>
-    </ul>
-  </div>
-  <div class="content"></div>
-</div>
-`;
+layout.appendChild(layoutContent);
 
 home.appendChild(homeContent);
 
-about.innerHTML = `
-  <div class="about">
-    <h1>About</h1>
-    <p>About page content</p>
-  </div>
-`;
+lugares.appendChild(lugaresContent);
 
-contact.innerHTML = `
-  <div class="contact">
-    <h1>Contact</h1>
-    <p>Contact page content</p>
-  </div>
-`;
+amigos.appendChild(amigosContent);
 
-// Declaramos el contenido del div con clase app
-app.innerHTML = setTimeout(() => {
-  return `${layout.innerHTML}`;
-}, 1000);
-
-// Declaramos el evento que se encargará de cambiar el contenido del div con clase content
-document.addEventListener("DOMContentLoaded", () => {
-  app.innerHTML = layout.innerHTML;
+function initApp() {
+  // Declaramos el contenido del div con clase app
+  app.innerHTML = `
+    ${layout.innerHTML}
+  `;
+  // Declaramos el evento que se encargará de cambiar el contenido del div con clase content
   const nav = document.querySelector(".nav");
   nav.addEventListener("click", handleOnClick);
-});
+}
